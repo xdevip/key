@@ -1,1 +1,239 @@
+<!-- acc.html -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Nhận Acc Liên Quân</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Be Vietnam Pro',sans-serif;
+}
+
+body{
+    background:#f5f7fb;
+    min-height:100vh;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+}
+
+.card{
+    width:420px;
+    max-width:100%;
+
+    background:white;
+
+    border-radius:35px;
+
+    padding:35px 25px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+    text-align:center;
+}
+
+.title{
+    font-size:36px;
+    font-weight:700;
+
+    margin-bottom:35px;
+}
+
+.info-box{
+    background:#eef2f7;
+
+    border-radius:28px;
+
+    padding:35px 20px;
+
+    color:#58627b;
+
+    font-size:26px;
+    font-weight:600;
+
+    line-height:1.5;
+
+    margin-bottom:40px;
+}
+
+.random-btn{
+    width:100%;
+    height:95px;
+
+    border:none;
+
+    border-radius:30px;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-size:30px;
+    font-weight:700;
+
+    position:relative;
+
+    background:linear-gradient(
+        90deg,
+        #5c6cff,
+        #8c42d8
+    );
+
+    box-shadow:0 10px 25px rgba(92,108,255,.25);
+}
+
+.countdown{
+    position:absolute;
+
+    right:20px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:55px;
+    height:75px;
+
+    border-radius:22px;
+
+    background:white;
+
+    color:#5c6cff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:28px;
+    font-weight:700;
+}
+
+.acc-box{
+    margin-top:30px;
+
+    display:none;
+
+    background:#f5f7fb;
+
+    border-radius:25px;
+
+    padding:25px;
+}
+
+.acc-box p{
+    font-size:20px;
+    font-weight:600;
+
+    margin:12px 0;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <div class="title">
+        🎮 Tặng Acc Liên Quân
+    </div>
+
+    <div class="info-box">
+        ℹ️ Nhấn nút để nhận tài khoản
+    </div>
+
+    <button class="random-btn" id="getAccBtn">
+
+        ⚡ Nhận acc
+
+        <div class="countdown" id="timer">
+            0
+        </div>
+
+    </button>
+
+    <div class="acc-box" id="accBox">
+
+        <p id="username"></p>
+
+        <p id="password"></p>
+
+    </div>
+
+</div>
+
+<script>
+
+const WAIT_TIME = 60;
+
+const getBtn = document.getElementById("getAccBtn");
+const timerEl = document.getElementById("timer");
+const accBox = document.getElementById("accBox");
+
+let cooldown = false;
+
+async function getRandomAccount(){
+
+    if(cooldown) return;
+
+    cooldown = true;
+
+    // đọc file accs.json
+    const response = await fetch("accs.json");
+
+    const accounts = await response.json();
+
+    // random acc
+    const randomAcc =
+    accounts[Math.floor(Math.random() * accounts.length)];
+
+    document.getElementById("username").innerHTML =
+        "👤 Tài khoản: " + randomAcc.username;
+
+    document.getElementById("password").innerHTML =
+        "🔑 Mật khẩu: " + randomAcc.password;
+
+    accBox.style.display = "block";
+
+    // countdown
+    let time = WAIT_TIME;
+
+    timerEl.innerText = time;
+
+    const countdown = setInterval(() => {
+
+        time--;
+
+        timerEl.innerText = time;
+
+        if(time <= 0){
+
+            clearInterval(countdown);
+
+            timerEl.innerText = "0";
+
+            cooldown = false;
+
+        }
+
+    },1000);
+
+}
+
+getBtn.addEventListener("click", getRandomAccount);
+
+</script>
+
+</body>
+  </html>
