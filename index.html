@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Anh Tuấn AOV</title>
+
+<link rel="icon" type="image/png" href="verify.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+html,body{
+  overflow-x:hidden;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Be Vietnam Pro',sans-serif;
+}
+
+html,
+body{
+  -ms-overflow-style:none;
+  scrollbar-width:none;
+}
+
+::-webkit-scrollbar{
+  width:0;
+  height:0;
+  display:none;
+}
+
+body{
+  background:#ffffff;
+  min-height:100vh;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  overflow-y:auto;
+  padding:20px;
+
+  position:relative;
+}
+
+.bg{
+  position:absolute;
+
+  width:500px;
+  height:500px;
+
+  border-radius:50%;
+
+  background:linear-gradient(
+    135deg,
+    #0088ff22,
+    #00c6ff22
+  );
+
+  filter:blur(90px);
+}
+
+.one{
+  top:-150px;
+  left:-120px;
+}
+
+.two{
+  bottom:-150px;
+  right:-120px;
+}
+
+.card{
+  position:relative;
+  z-index:10;
+
+  width:380px;
+  max-width:100%;
+
+  padding:40px 30px;
+
+  text-align:center;
+
+  background:#ffffffd9;
+
+  border-radius:32px;
+  border:1px solid #00000010;
+
+  backdrop-filter:blur(15px);
+
+  box-shadow:0 10px 40px #00000014;
+}
+
+.avatar{
+  width:110px;
+  height:110px;
+
+  margin:auto;
+
+  overflow:hidden;
+
+  border-radius:28px;
+
+  box-shadow:0 10px 25px #0088ff20;
+}
+
+.avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+h1{
+  margin-top:22px;
+
+  font-size:30px;
+  font-weight:700;
+
+  color:#111111;
+}
+
+p{
+  margin-top:12px;
+
+  font-size:15px;
+  line-height:1.7;
+
+  color:#666666;
+}
+
+.btn{
+  width:100%;
+  height:58px;
+
+  margin-top:30px;
+
+  border:none;
+
+  border-radius:18px;
+
+  text-decoration:none;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+
+  font-size:17px;
+  font-weight:600;
+
+  color:white;
+
+  cursor:pointer;
+
+  background:linear-gradient(
+    135deg,
+    #0088ff,
+    #00b7ff
+  );
+
+  box-shadow:0 10px 25px #0088ff40;
+
+  transition:.25s;
+}
+
+.btn:hover{
+  transform:translateY(-3px);
+}
+
+.telegram{
+  width:22px;
+  height:22px;
+
+  fill:white;
+}
+
+.footer{
+  margin-top:22px;
+
+  font-size:12px;
+
+  color:#999999;
+}
+
+.loading{
+  margin-top:20px;
+  color:#0088ff;
+  font-size:14px;
+  display:none;
+}
+
+@media(max-width:480px){
+
+  .card{
+    padding:35px 22px;
+    border-radius:28px;
+  }
+
+  h1{
+    font-size:26px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg one"></div>
+<div class="bg two"></div>
+
+<div class="card">
+
+  <div class="avatar">
+    <img src="/aov.png" alt="Anh Tuấn AOV">
+  </div>
+
+  <h1>Anh Tuấn AOV</h1>
+
+  <p>
+    Tham gia nhóm telegram để cập nhật tin tức mới nhất từ Anh Tuấn AOV
+  </p>
+
+  <button class="btn" onclick="joinTelegram()">
+
+    <svg class="telegram" viewBox="0 0 24 24">
+      <path d="M9.04 15.57 8.7 20.4c.5 0 .72-.22.99-.48l2.38-2.28 4.93 3.61c.9.5 1.54.24 1.78-.83l3.22-15.1c.29-1.36-.49-1.89-1.37-1.56L1.64 10.7c-1.3.5-1.28 1.22-.22 1.55l4.86 1.52L17.6 6.7c.53-.35 1.01-.16.61.19z"></path>
+    </svg>
+
+    Tham Gia Telegram
+
+  </button>
+
+  <div class="loading" id="loading">
+    Đang kiểm tra nhiệm vụ...
+  </div>
+
+  <div class="footer">
+    © 2026 Anh Tuấn AOV
+  </div>
+
+</div>
+
+<script>
+
+// LINK TELEGRAM
+const TELEGRAM_LINK = "https://t.me/sextrungg";
+
+// TRANG NHẬN ACC
+const GET_ACC_PAGE = "acc.html";
+
+function joinTelegram(){
+
+    // mở telegram
+    window.open(TELEGRAM_LINK, "_blank");
+
+    // hiện loading
+    document.getElementById("loading").style.display = "block";
+
+    // lưu trạng thái
+    localStorage.setItem("joined_telegram", "true");
+
+    // chờ người dùng quay lại rồi chuyển trang
+    setTimeout(() => {
+
+        window.location.href = GET_ACC_PAGE;
+
+    }, 4000);
+
+}
+
+</script>
+
+</body>
+      </html>
