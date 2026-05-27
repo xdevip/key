@@ -1,3 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nhận Acc Liên Quân</title>
+
+<style>
+
+body{
+    background:#f5f7fb;
+    font-family:sans-serif;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    min-height:100vh;
+}
+
+.card{
+
+    width:350px;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.1);
+}
+
+.random-btn{
+
+    width:100%;
+    height:70px;
+
+    border:none;
+
+    border-radius:20px;
+
+    background:linear-gradient(90deg,#5c6cff,#8c42d8);
+
+    color:white;
+
+    font-size:25px;
+
+    cursor:pointer;
+}
+
+.countdown{
+
+    margin-top:15px;
+
+    font-size:25px;
+
+    font-weight:bold;
+}
+
+.acc-box{
+
+    margin-top:20px;
+
+    display:none;
+
+    background:#f2f2f2;
+
+    padding:20px;
+
+    border-radius:15px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <h1>🎮 Tặng Acc Liên Quân</h1>
+
+    <br>
+
+    <button class="random-btn" id="getAccBtn">
+        ⚡ Nhận acc
+    </button>
+
+    <div class="countdown" id="timer">
+        0
+    </div>
+
+    <div class="acc-box" id="accBox">
+
+        <p id="username"></p>
+
+        <p id="password"></p>
+
+    </div>
+
+</div>
+
 <script>
 
 const WAIT_TIME = 60;
@@ -16,45 +122,28 @@ async function getRandomAccount(){
 
     try{
 
-        // đọc file json
-        const response = await fetch("./accs.json");
+        const response =
+        await fetch("./accs.json");
 
-        if(!response.ok){
-            alert("Không tìm thấy file accs.json");
-            cooldown = false;
-            return;
-        }
+        const accounts =
+        await response.json();
 
-        const accounts = await response.json();
-
-        // kiểm tra file rỗng
-        if(accounts.length === 0){
-
-            alert("Không có acc");
-
-            cooldown = false;
-
-            return;
-        }
-
-        // random acc
         const randomAcc =
         accounts[Math.floor(Math.random() * accounts.length)];
 
         document.getElementById("username").innerHTML =
-            "👤 Tài khoản: " + randomAcc.username;
+        "👤 Tài khoản: " + randomAcc.username;
 
         document.getElementById("password").innerHTML =
-            "🔑 Mật khẩu: " + randomAcc.password;
+        "🔑 Mật khẩu: " + randomAcc.password;
 
         accBox.style.display = "block";
 
-        // countdown
         let time = WAIT_TIME;
 
         timerEl.innerText = time;
 
-        const countdown = setInterval(() => {
+        const countdown = setInterval(()=>{
 
             time--;
 
@@ -64,9 +153,9 @@ async function getRandomAccount(){
 
                 clearInterval(countdown);
 
-                timerEl.innerText = "0";
-
                 cooldown = false;
+
+                timerEl.innerText = 0;
 
             }
 
@@ -76,7 +165,7 @@ async function getRandomAccount(){
 
     catch(error){
 
-        alert("Lỗi: " + error);
+        alert(error);
 
         cooldown = false;
 
@@ -87,3 +176,6 @@ async function getRandomAccount(){
 getBtn.addEventListener("click", getRandomAccount);
 
 </script>
+
+</body>
+</html>
