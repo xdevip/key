@@ -97,17 +97,28 @@ body{
   box-shadow:0 10px 40px #00000014;
 }
 
+/* AVATAR */
 .avatar{
-  width:110px;
-  height:110px;
+  width:120px;
+  height:120px;
 
   margin:auto;
 
   overflow:hidden;
 
-  border-radius:28px;
+  border-radius:50%;
 
-  box-shadow:0 10px 25px #0088ff20;
+  border:4px solid #ffffff;
+
+  box-shadow:
+    0 0 25px #00b7ff55,
+    0 10px 30px #0088ff30;
+
+  transition:0.3s;
+}
+
+.avatar:hover{
+  transform:scale(1.05);
 }
 
 .avatar img{
@@ -219,7 +230,7 @@ p{
 <div class="card">
 
   <div class="avatar">
-    <img src="/aov.png" alt="https://i.imgur.com/GgzBK4Y.jpeg">
+    <img src="https://i.imgur.com/GgzBK4Y.jpeg" alt="Avatar">
   </div>
 
   <h1>xDev User Aov</h1>
@@ -250,24 +261,18 @@ p{
 
 <script>
 
-// LINK TELEGRAM
 const TELEGRAM_LINK = "https://t.me/+JhnqHpPKqW0zODA1";
 
-// TRANG NHẬN ACC
 const GET_ACC_PAGE = "acc.html";
 
 function joinTelegram(){
 
-    // mở telegram
     window.open(TELEGRAM_LINK, "_blank");
 
-    // hiện loading
     document.getElementById("loading").style.display = "block";
 
-    // lưu trạng thái
     localStorage.setItem("joined_telegram", "true");
 
-    // chờ người dùng quay lại rồi chuyển trang
     setTimeout(() => {
 
         window.location.href = GET_ACC_PAGE;
@@ -279,4 +284,4 @@ function joinTelegram(){
 </script>
 
 </body>
-      </html>
+</html>
